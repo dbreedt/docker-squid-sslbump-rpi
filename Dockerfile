@@ -1,8 +1,7 @@
-FROM debian:latest
-MAINTAINER SYA-KE <syakesaba@gmail.com>
+FROM raspbian/stretch
+MAINTAINER Justin Schwartzbeck <justinmschw@gmail.com>
 
 ENV SQUID_DIR /usr/local/squid
-ENV C_ICAP_DIR /usr/local/c-icap
 
 RUN apt-get update && \
     apt-get -qq -y install openssl libssl1.0-dev build-essential wget curl net-tools dnsutils tcpdump && \
@@ -12,15 +11,7 @@ RUN apt-get update && \
 RUN wget http://www.squid-cache.org/Versions/v3/3.5/squid-3.5.27.tar.gz && \
     tar xzvf squid-3.5.27.tar.gz && \
     cd squid-3.5.27 && \
-    ./configure --prefix=$SQUID_DIR --enable-ssl --with-openssl --enable-ssl-crtd --with-large-files --enable-auth && \
-    make -j4 && \
-    make install
-
-# c-icap 0.5.2
-RUN wget https://downloads.sourceforge.net/project/c-icap/c-icap/0.5.x/c_icap-0.5.2.tar.gz && \
-    tar xzvf c_icap-0.5.2.tar.gz && \
-    cd c_icap-0.5.2 && \
-    ./configure --enable-large-files --enable-lib-compat --prefix=$C_ICAP_DIR && \
+    ./configure --prefix=$SQUID_DIR --enable-ssl --with-openssl --enable-ssl-crtd --with-large-files --enable-auth --enable-icap-client && \
     make -j4 && \
     make install
 

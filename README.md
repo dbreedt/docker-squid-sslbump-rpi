@@ -1,20 +1,20 @@
-docker-sslbump-proxy
+docker-squid-sslbump-rpi
 ======================
-squid + c-icap
+squid ssl proxy with icap for docker on raspberry pi. Based on syakesaba/docker-sslbump-proxy.
 
 Baseimage
 ======================
-debian:latest
+raspbian/stretch
 
 Usage
 ======================
 ```sh
-git clone https://github.com/syakesaba/docker-sslbump-proxy.git
-cd docker-sslbump-proxy
-docker build . -t sslbump-proxy
-docker run -ti -p 3128:3128 sslbump-proxy
+git clone https://github.com/justinschw/docker-squid-sslbump-rpi.git
+cd docker-squid-sslbump-rpi
+docker build . -t docker-squid-sslbump-rpi
+docker run -ti -p 3128:3128 docker-squid-sslbump-rpi
 #C-p q to detach, or
-#docker run -d -p 3128:3128 sslbump-proxy
+#docker run -d -p 3128:3128 docker-squid-sslbump-rpi
 ```
 
 Usage (Proxy)
