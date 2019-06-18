@@ -25,6 +25,7 @@ sed "s/^http_access allow localnet$/http_access allow all/" -i $SQUID_DIR/etc/sq
 echo "http_port 3128 ssl-bump generate-host-certificates=on dynamic_cert_mem_cache_size=4MB cert=$SQUID_DIR/myCA.crt key=$SQUID_DIR/myCA.pem" >> $SQUID_DIR/etc/squid.conf
 cat $SQUID_DIR/etc/squid.conf | grep added\ config -A1000 #fflush()
 echo "#===added config==="
-$SQUID_DIR/sbin/squid -d 10 -f $SQUID_DIR/etc/squid.conf
+exec $SQUID_DIR/sbin/squid -f $SQUID_DIR/etc/squid.conf -NYCd 10
+#$SQUID_DIR/sbin/squid -d 10 -f $SQUID_DIR/etc/squid.conf
 
-bash
+#bash
