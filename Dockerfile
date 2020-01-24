@@ -3,17 +3,16 @@ MAINTAINER Justin Schwartzbeck <justinmschw@gmail.com>
 
 ENV SQUID_USER=squid
 ENV SQUID_DIR /usr/local/squid
-ENV SQUID_LINK http://www.squid-cache.org/Versions/v3/3.5/squid-3.5.27.tar.gz
-ENV SQUID_VERSION 3.5.27
+ENV SQUID_LINK http://www.squid-cache.org/Versions/v4/squid-4.10.tar.gz
+ENV SQUID_VERSION 4.10
 
 RUN apt-get update && \
     apt-get -qq -y install openssl libssl1.0-dev build-essential wget curl net-tools dnsutils tcpdump && \
     apt-get clean
 
-# squid 3.5.27
-RUN wget http://www.squid-cache.org/Versions/v3/3.5/squid-3.5.27.tar.gz && \
-    tar xzvf squid-3.5.27.tar.gz && \
-    cd squid-3.5.27 && \
+RUN wget $SQUID_LINK && \
+    tar xzvf squid-$SQUID_VERSION.tar.gz && \
+    cd squid-$SQUID_VERSION && \
     ./configure --prefix=$SQUID_DIR --enable-ssl --with-openssl --enable-ssl-crtd --with-large-files --enable-auth --enable-icap-client && \
     make -j4 && \
     make install
