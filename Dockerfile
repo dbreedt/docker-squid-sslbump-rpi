@@ -33,7 +33,7 @@ RUN echo "sslproxy_cert_error allow all" >> $SQUID_DIR/etc/squid.conf
 RUN echo "sslproxy_flags DONT_VERIFY_PEER" >> $SQUID_DIR/etc/squid.conf
 RUN sed "/^http_port 3128$/d" -i $SQUID_DIR/etc/squid.conf
 RUN sed "s/^http_access allow localnet$/http_access allow all/" -i $SQUID_DIR/etc/squid.conf
-RUN sed "/^http_port 3130 intercept" -i $SQUID_DIR/etc/squid.conf
+RUN echo "http_port 3130 intercept" >> $SQUID_DIR/etc/squid.conf
 RUN echo "https_port 3131 intercept ssl-bump generate-host-certificates=on dynamic_cert_mem_cache_size=4MB cert=$SQUID_DIR/ssl/bluestar.crt key=$SQUID_DIR/ssl/bluestar.pem" >> $SQUID_DIR/etc/squid.conf
 RUN echo "http_port 3128 ssl-bump generate-host-certificates=on dynamic_cert_mem_cache_size=4MB cert=$SQUID_DIR/ssl/bluestar.crt key=$SQUID_DIR/ssl/bluestar.pem" >> $SQUID_DIR/etc/squid.conf
 RUN cat $SQUID_DIR/etc/squid.conf | grep added\ config -A1000 #fflush()
